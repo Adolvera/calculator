@@ -43,6 +43,9 @@ decimalButton.addEventListener('click', () => checkDecimal());
 clearButton.addEventListener('click', () => fullClear());
 signButton.addEventListener('click', () => flipSign());
 
+//Allows for num key input
+window.addEventListener('keydown', (e) => checkKey(e));
+
 //clears display
 clearEntryButton.addEventListener('click', () => {
   displayValue = '';
@@ -54,6 +57,7 @@ let displayValue = '';
 let firstNumber = 0;
 let secondNumber = 0;
 let currentHistory = '';
+let answerToggle = false;
 
 //Simple math functions
 const add = (num1, num2) => num1 + num2;
@@ -75,6 +79,12 @@ const operate = (operator, num1, num2) => {
 //prints number clicked to display
 const displayNumbers = (number) => {
   if (display.textContent.length >= 18) return;
+
+  //stops addition of numbers to final answer
+  if (answerToggle) {
+    fullClear();
+    answerToggle = false;
+  }
   displayValue += `${number}`;
   display.textContent = displayValue;
 }
@@ -100,7 +110,7 @@ const checkDecimal = () => {
 
 //Function for calculation based on sign clicked
 const signInput = (sign) => {
-
+  answerToggle = false;
   currentHistory = history.textContent;
 
   //checks to see if there is already a number in the history
@@ -149,6 +159,7 @@ const getEqual = () => {
   if (answer === 'Fuck off lol') answer = '0';
   firstNumber = answer;
   displayValue = answer;
+  answerToggle = true;
 }
 
 //runs correct calculation based on sign input
@@ -172,4 +183,18 @@ const fullClear = () => {
   currentHistory = '';
   history.textContent = '';
   display.textContent = '0';
+}
+
+//Checks for valid key press
+const checkKey = (e) => {
+  if (e.keyCode === 49) displayNumbers('1');
+  if (e.keyCode === 50) displayNumbers('2');
+  if (e.keyCode === 51) displayNumbers('3');
+  if (e.keyCode === 52) displayNumbers('4');
+  if (e.keyCode === 53) displayNumbers('5');
+  if (e.keyCode === 54) displayNumbers('6');
+  if (e.keyCode === 55) displayNumbers('7');
+  if (e.keyCode === 56) displayNumbers('8');
+  if (e.keyCode === 57) displayNumbers('9');
+  if (e.keyCode === 48) displayNumbers('0');
 }
