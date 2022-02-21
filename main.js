@@ -187,14 +187,20 @@ const fullClear = () => {
 
 //Checks for valid key press
 const checkKey = (e) => {
-  if (e.keyCode === 49) displayNumbers('1');
-  if (e.keyCode === 50) displayNumbers('2');
-  if (e.keyCode === 51) displayNumbers('3');
-  if (e.keyCode === 52) displayNumbers('4');
-  if (e.keyCode === 53) displayNumbers('5');
-  if (e.keyCode === 54) displayNumbers('6');
-  if (e.keyCode === 55) displayNumbers('7');
-  if (e.keyCode === 56) displayNumbers('8');
-  if (e.keyCode === 57) displayNumbers('9');
-  if (e.keyCode === 48) displayNumbers('0');
+  const keyPressObject = {
+    "1": 49,
+    "2": 50,
+    "3": 51,
+    "4": 52,
+    "5": 53,
+    "6": 54,
+    "7": 55,
+    "8": 56,
+    "9": 57,
+    "0": 48
+  }
+
+  for (const [key, value] of Object.entries(keyPressObject)) {
+    if (e.keyCode === value) displayNumbers(key);
+  }
 }
